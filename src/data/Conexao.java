@@ -10,7 +10,7 @@ public class Conexao {
         String url="jdbc:sqlserver://localhost:1433;databaseName=bdExemploManha;encrypt=true;trustServerCertificate=true";
         String driver="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         String usuarioBanco="UsuarioJava";
-        String senhaBanco = "Fatec2023";
+        String senhaBanco = "user123!";
         Class.forName(driver);
         conexao = DriverManager.getConnection(url, usuarioBanco, senhaBanco);
         System.out.println("Conectado");
