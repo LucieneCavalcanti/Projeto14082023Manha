@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 import data.FuncionarioData;
 import model.Funcionario;
@@ -16,13 +19,29 @@ public class App {
         // objFuncionario.setSenha(senha);
         // System.out.println(objFuncionario.validarLogin());
         try{
-            Funcionario objFuncionario = new Funcionario(100,"Joaquim","joaquim@fatec",
-                "321654","atendente");
+            // Funcionario objFuncionario = new Funcionario(100,"Joaquim","joaquim@fatec",
+            //     "321654","atendente");
+            Funcionario objFuncionario = new Funcionario();
+            objFuncionario.setId(Integer.parseInt(JOptionPane.showInputDialog("Digite o id")));
+            objFuncionario.setNome(JOptionPane.showInputDialog("Digite o nome"));
+            objFuncionario.setEmail(JOptionPane.showInputDialog("Digite o e-mail"));
+            objFuncionario.setSenha(JOptionPane.showInputDialog("Digite a senha"));
+            objFuncionario.setCargo(JOptionPane.showInputDialog("Digite o cargo"));
             FuncionarioData DAO = new FuncionarioData();
             if(DAO.incluir(objFuncionario))
                 System.out.println(Mensagens.MENSAGEM_SALVO);
             else
                 System.out.println(Mensagens.MENSAGEM_ERRO);
+            System.out.println("-------------- LISTAGEM -----------------");
+            ArrayList<Funcionario> listagem = new ArrayList<>();
+            listagem = DAO.listar();
+            for (Funcionario funcionario : listagem) {
+                System.out.println("id: " + funcionario.getId() +
+                " Nome: "+ funcionario.getNome() + 
+                " E-mail: "+funcionario.getEmail() +
+                " Senha: " + funcionario.getSenha() +
+                " Cargo: " + funcionario.getCargo());
+            }
         } catch(Exception erro){
             System.out.println("Erro: "+ erro.getMessage());
         }

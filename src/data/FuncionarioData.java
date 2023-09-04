@@ -1,6 +1,8 @@
 package data;
 
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import model.Funcionario;
@@ -45,8 +47,20 @@ public class FuncionarioData extends Conexao implements CRUD{
 
     @Override
     public ArrayList<Funcionario> listar() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listar'");
+        String sql="select * from Pessoas,Funcionarios where Pessoas.id=Funcionarios.idPessoa";  
+        PreparedStatement ps = getConexao().prepareStatement(sql);
+        ResultSet dados = ps.executeQuery();
+        ArrayList<Funcionario> lista = new ArrayList<>();
+        while(dados.next()){
+            Funcionario obj = new Funcionario();
+            obj.setId(dados.getInt("id"));
+            obj.setNome(dados.getString("nome"));
+            obj.setEmail(dados.getString("email"));
+            obj.setSenha(dados.getString("senha"));
+            obj.setCargo(dados.getString("cargo"));
+            lista.add(obj);
+        }
+        return lista;
     }
 
     @Override
