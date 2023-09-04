@@ -16,8 +16,8 @@ public class App {
         // objFuncionario.setSenha(senha);
         // System.out.println(objFuncionario.validarLogin());
         try{
-            Funcionario objFuncionario = new Funcionario(1,"José","jose@fatec",
-                "123","diretor");
+            Funcionario objFuncionario = new Funcionario(100,"Joaquim","joaquim@fatec",
+                "321654","atendente");
             FuncionarioData DAO = new FuncionarioData();
             if(DAO.incluir(objFuncionario))
                 System.out.println(Mensagens.MENSAGEM_SALVO);

@@ -16,4 +16,11 @@ public class Funcionario extends Pessoa {
             super(id, nome, email, senha);
             this.cargo = cargo;
         }
+    public String getCargo() {
+        return cargo;
+    }
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+        
 }

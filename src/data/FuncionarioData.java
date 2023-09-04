@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.CallableStatement;
 import java.util.ArrayList;
 
 import model.Funcionario;
@@ -13,8 +14,15 @@ public class FuncionarioData extends Conexao implements CRUD{
 
     @Override
     public boolean incluir(Funcionario obj) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'incluir'");
+        CallableStatement callable = getConexao().
+            prepareCall("{call cadastrarFuncionario (?,?,?,?)}");
+        callable.setString(1, obj.getNome());
+        callable.setString(2, obj.getEmail());
+        callable.setString(3, obj.getSenha());
+        callable.setString(4, obj.getCargo());
+        int registros = callable.executeUpdate();
+        if (registros==1) return true;
+        else return false;
     }
 
     @Override
