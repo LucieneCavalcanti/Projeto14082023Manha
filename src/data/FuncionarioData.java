@@ -35,8 +35,12 @@ public class FuncionarioData extends Conexao implements CRUD{
 
     @Override
     public boolean excluir(int id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'excluir'");
+       String sql="{call excluirFuncionario (?)}";
+       CallableStatement cs = getConexao().prepareCall(sql);
+       cs.setInt(1, id);
+       int registros = cs.executeUpdate();
+       if (registros==1) return true;
+       else return false;
     }
 
     @Override

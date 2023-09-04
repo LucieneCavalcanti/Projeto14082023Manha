@@ -21,3 +21,10 @@ as
 	insert into Funcionarios(idPessoa, cargo)
 	   values (@@IDENTITY,@cargo);
 end;
+create procedure excluirFuncionario
+@id int
+as 
+	begin
+	delete from Funcionarios where idPessoa=@id;
+	delete from Pessoas where id=@id;
+end;
