@@ -26,7 +26,7 @@ public class App {
             String opcao = new String();
             do {
                 opcao = JOptionPane.showInputDialog("Escolha uma opção:"+
-                "\n1-Cadastrar Funcionário \n2-Listar Funcionários \n3-Excluir Funcionário \n4-Editar Funcionário \n5-Sair");
+                "\n1-Cadastrar Funcionário \n2-Listar Funcionários \n3-Excluir Funcionário \n4-Editar Funcionário \n5-Pesquisar por nome \n6-Sair");
                 switch (opcao) {
                     case "1":
                         objFuncionario.setId(Integer.parseInt(JOptionPane.showInputDialog("Digite o id")));
@@ -84,6 +84,18 @@ public class App {
                         }
                         break;
                     case "5":
+                        String nome = JOptionPane.showInputDialog("Digite parte do nome a ser pesquisado");
+                        System.out.println("-------------- LISTAGEM -----------------");
+                        listagem = new ArrayList<>();
+                        listagem = DAO.listar(nome);
+                        for (Funcionario funcionario : listagem) {
+                            System.out.println("id: " + funcionario.getId() + " Nome: "+ funcionario.getNome() + 
+                            " E-mail: "+funcionario.getEmail() +
+                            " Senha: " + funcionario.getSenha() +
+                            " Cargo: " + funcionario.getCargo());
+                        }
+                        break;
+                        case "6":
                         System.exit(0);
                         break;
                     default:
