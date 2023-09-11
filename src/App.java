@@ -58,8 +58,24 @@ public class App {
                         else
                             System.out.println("Problemas ao excluir");
                         break;
-                    case "4":
-                        
+                    case "4": //primeiro estamos listando os registros
+                        System.out.println("-------------- LISTAGEM -----------------");
+                        ArrayList<Funcionario> listagem2 = new ArrayList<>();
+                        listagem2 = DAO.listar();
+                        for (Funcionario funcionario : listagem2) {
+                            System.out.println("id: " + funcionario.getId() + " Nome: "+ funcionario.getNome() + 
+                            " E-mail: "+funcionario.getEmail() +
+                            " Senha: " + funcionario.getSenha() +
+                            " Cargo: " + funcionario.getCargo());
+                        }
+                        int idEdicao = Integer.parseInt(JOptionPane.showInputDialog("Digite o id para editar o registro"));
+                        objFuncionario = DAO.obter(idEdicao);
+                        objFuncionario.setNome(JOptionPane.showInputDialog("Digite o nome",objFuncionario.getNome()));
+                        objFuncionario.setEmail(JOptionPane.showInputDialog("Digite o e-mail",objFuncionario.getEmail()));      
+                        objFuncionario.setSenha(JOptionPane.showInputDialog("Digite a senha",objFuncionario.getSenha()));
+                        objFuncionario.setCargo(JOptionPane.showInputDialog("Digite o cargo",objFuncionario.getCargo()));
+                        DAO.alterar(objFuncionario);
+                        System.out.println("Alterado com sucesso!");
                         break;
                     case "5":
                         
