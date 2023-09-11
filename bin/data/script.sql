@@ -28,3 +28,15 @@ as
 	delete from Funcionarios where idPessoa=@id;
 	delete from Pessoas where id=@id;
 end;
+create procedure atualizarFuncionario
+@id int, --chave primária para o Update
+@nome varchar(200),@email varchar(200),
+@senha varchar(20) ,@cargo varchar(50)
+as 
+	begin
+	update Pessoas set nome= @nome,
+	email=@email,senha=@senha
+	   where id=@id;
+	update Funcionarios set cargo=@cargo
+	   where idPessoa=@id
+end;

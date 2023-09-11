@@ -70,15 +70,21 @@ public class App {
                         }
                         int idEdicao = Integer.parseInt(JOptionPane.showInputDialog("Digite o id para editar o registro"));
                         objFuncionario = DAO.obter(idEdicao);
-                        objFuncionario.setNome(JOptionPane.showInputDialog("Digite o nome",objFuncionario.getNome()));
-                        objFuncionario.setEmail(JOptionPane.showInputDialog("Digite o e-mail",objFuncionario.getEmail()));      
-                        objFuncionario.setSenha(JOptionPane.showInputDialog("Digite a senha",objFuncionario.getSenha()));
-                        objFuncionario.setCargo(JOptionPane.showInputDialog("Digite o cargo",objFuncionario.getCargo()));
-                        DAO.alterar(objFuncionario);
-                        System.out.println("Alterado com sucesso!");
+                        if(objFuncionario==null)//não encontrou o registro
+                            JOptionPane.showMessageDialog(null, "Não encontrado");
+                        else {
+                            objFuncionario.setNome(JOptionPane.showInputDialog("Digite o nome",objFuncionario.getNome()));
+                            objFuncionario.setEmail(JOptionPane.showInputDialog("Digite o e-mail",objFuncionario.getEmail()));      
+                            objFuncionario.setSenha(JOptionPane.showInputDialog("Digite a senha",objFuncionario.getSenha()));
+                            objFuncionario.setCargo(JOptionPane.showInputDialog("Digite o cargo",objFuncionario.getCargo()));
+                            if(DAO.alterar(objFuncionario))//salvar no banco
+                                System.out.println("Alterado com sucesso!");
+                            else
+                                System.out.println("Problemas ao alterar.");
+                        }
                         break;
                     case "5":
-                        
+                        System.exit(0);
                         break;
                     default:
                         break;

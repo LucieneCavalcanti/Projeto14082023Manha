@@ -29,8 +29,16 @@ public class FuncionarioData extends Conexao implements CRUD{
 
     @Override
     public boolean alterar(Funcionario obj) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'alterar'");
+        String sql="{call atualizarFuncionario (?,?,?,?,?)}";
+       CallableStatement cs = getConexao().prepareCall(sql);
+       cs.setInt(1, obj.getId());
+       cs.setString(2, obj.getNome());
+       cs.setString(3, obj.getEmail());
+       cs.setString(4, obj.getSenha());
+       cs.setString(5, obj.getCargo());
+       int registros = cs.executeUpdate();
+       if (registros==1) return true;
+       else return false;
     }
 
     @Override
@@ -45,8 +53,15 @@ public class FuncionarioData extends Conexao implements CRUD{
 
     @Override
     public Funcionario obter(int id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obter'");
+        String sql = "select * from Pessoas, Funcionarios where Funcionarios.idPessoa = Pessoas.id and Pessoas.id=?";
+        PreparedStatement ps = getConexao().prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet dados = ps.executeQuery();
+        Funcionario obj = null;
+        if (dados.next()){
+            obj = new Funcionario(dados.getInt("id"), dados.getString("nome"), dados.getString("email"), dados.getString("senha"), dados.getString("cargo"));
+        }
+        return obj;
     }
 
     @Override
