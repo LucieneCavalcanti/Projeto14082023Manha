@@ -44,11 +44,15 @@ public class App {
                         System.out.println("-------------- LISTAGEM -----------------");
                         ArrayList<Funcionario> listagem = new ArrayList<>();
                         listagem = DAO.listar();
-                        for (Funcionario funcionario : listagem) {
-                            System.out.println("id: " + funcionario.getId() + " Nome: "+ funcionario.getNome() + 
-                            " E-mail: "+funcionario.getEmail() +
-                            " Senha: " + funcionario.getSenha() +
-                            " Cargo: " + funcionario.getCargo());
+                        if(listagem.size()==0)
+                            System.out.println("Não há registros");
+                        else {
+                            for (Funcionario funcionario : listagem) {
+                                System.out.println("id: " + funcionario.getId() + " Nome: "+ funcionario.getNome() + 
+                                " E-mail: "+funcionario.getEmail() +
+                                " Senha: " + funcionario.getSenha() +
+                                " Cargo: " + funcionario.getCargo());
+                            }
                         }
                         break;
                     case "3":
@@ -62,37 +66,45 @@ public class App {
                         System.out.println("-------------- LISTAGEM -----------------");
                         ArrayList<Funcionario> listagem2 = new ArrayList<>();
                         listagem2 = DAO.listar();
-                        for (Funcionario funcionario : listagem2) {
-                            System.out.println("id: " + funcionario.getId() + " Nome: "+ funcionario.getNome() + 
-                            " E-mail: "+funcionario.getEmail() +
-                            " Senha: " + funcionario.getSenha() +
-                            " Cargo: " + funcionario.getCargo());
-                        }
-                        int idEdicao = Integer.parseInt(JOptionPane.showInputDialog("Digite o id para editar o registro"));
-                        objFuncionario = DAO.obter(idEdicao);
-                        if(objFuncionario==null)//não encontrou o registro
-                            JOptionPane.showMessageDialog(null, "Não encontrado");
-                        else {
-                            objFuncionario.setNome(JOptionPane.showInputDialog("Digite o nome",objFuncionario.getNome()));
-                            objFuncionario.setEmail(JOptionPane.showInputDialog("Digite o e-mail",objFuncionario.getEmail()));      
-                            objFuncionario.setSenha(JOptionPane.showInputDialog("Digite a senha",objFuncionario.getSenha()));
-                            objFuncionario.setCargo(JOptionPane.showInputDialog("Digite o cargo",objFuncionario.getCargo()));
-                            if(DAO.alterar(objFuncionario))//salvar no banco
-                                System.out.println("Alterado com sucesso!");
-                            else
-                                System.out.println("Problemas ao alterar.");
-                        }
+                        if(listagem2.size()==0)
+                            System.out.println("Não há registros");
+                        else{
+                            for (Funcionario funcionario : listagem2) {
+                                System.out.println("id: " + funcionario.getId() + " Nome: "+ funcionario.getNome() + 
+                                " E-mail: "+funcionario.getEmail() +
+                                " Senha: " + funcionario.getSenha() +
+                                " Cargo: " + funcionario.getCargo());
+                                }    
+                            int idEdicao = Integer.parseInt(JOptionPane.showInputDialog("Digite o id para editar o registro"));
+                            objFuncionario = DAO.obter(idEdicao);
+                            if(objFuncionario==null)//não encontrou o registro
+                                JOptionPane.showMessageDialog(null, "Não encontrado");
+                            else {
+                                objFuncionario.setNome(JOptionPane.showInputDialog("Digite o nome",objFuncionario.getNome()));
+                                objFuncionario.setEmail(JOptionPane.showInputDialog("Digite o e-mail",objFuncionario.getEmail()));      
+                                objFuncionario.setSenha(JOptionPane.showInputDialog("Digite a senha",objFuncionario.getSenha()));
+                                objFuncionario.setCargo(JOptionPane.showInputDialog("Digite o cargo",objFuncionario.getCargo()));
+                                if(DAO.alterar(objFuncionario))//salvar no banco
+                                    System.out.println("Alterado com sucesso!");
+                                else
+                                    System.out.println("Problemas ao alterar.");
+                                }
+                            }
                         break;
                     case "5":
                         String nome = JOptionPane.showInputDialog("Digite parte do nome a ser pesquisado");
                         System.out.println("-------------- LISTAGEM -----------------");
                         listagem = new ArrayList<>();
                         listagem = DAO.listar(nome);
-                        for (Funcionario funcionario : listagem) {
-                            System.out.println("id: " + funcionario.getId() + " Nome: "+ funcionario.getNome() + 
-                            " E-mail: "+funcionario.getEmail() +
-                            " Senha: " + funcionario.getSenha() +
-                            " Cargo: " + funcionario.getCargo());
+                        if(listagem.size()==0)
+                           System.out.println("Não há registros");
+                        else {
+                            for (Funcionario funcionario : listagem) {
+                                System.out.println("id: " + funcionario.getId() + " Nome: "+ funcionario.getNome() + 
+                                " E-mail: "+funcionario.getEmail() +
+                                " Senha: " + funcionario.getSenha() +
+                                " Cargo: " + funcionario.getCargo());
+                            }
                         }
                         break;
                         case "6":
@@ -101,7 +113,7 @@ public class App {
                     default:
                         break;
                 }
-            } while (!opcao.equals("5"));
+            } while (!opcao.equals("6"));
             
             
         } catch(Exception erro){
